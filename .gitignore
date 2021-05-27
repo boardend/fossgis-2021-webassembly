@@ -1,0 +1,6 @@
+
+img/footage/*
+!img/footage/.gitignore
+
+video/*
+!video/.gitignore

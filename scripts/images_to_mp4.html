@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>title</title>
+  </head>
+  <body>
+    <h3>Click start to transcode images to mp4 (x264) and play!</h3>
+    <p>Powered by <a href="https://github.com/ffmpegwasm/ffmpeg.wasm" target="_blank">ffmpeg.wasm</a></p>
+    <video id="output-video" controls></video><br />
+    <button id="start-btn">Start</button>
+    <p id="message"></p>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.10.0/dist/ffmpeg.min.js"></script>
+    <script>
+      const { createFFmpeg, fetchFile } = FFmpeg;
+      const ffmpeg = createFFmpeg({
+        corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
+        log: true,
+      });
+      const image2video = async () => {
+        const message = document.getElementById("message");
+        message.innerHTML = "Loading ffmpeg-core.js";
+        await ffmpeg.load();
+        message.innerHTML = "Loading data";
+        for (let i = 0; i < 300; i += 1) {
+          const num = `00${i}`.slice(-3);
+          ffmpeg.FS(
+            "writeFile",
+            `tmp.${num}.jpg`,
+            await fetchFile(`../img/footage/${num}.jpg`)
+          );
+        }
+        message.innerHTML = "Start transcoding";
+        await ffmpeg.run(
+          "-framerate",
+          "30",
+          "-pattern_type",
+          "glob",
+          "-i",
+          "*.jpg",
+          "-filter:v",
+          "fade=out:200:100:color=white",
+          "-c:a",
+          "copy",
+          "-shortest",
+          "-c:v",
+          "libx264",
+          "-pix_fmt",
+          "yuv420p",
+          "out.mp4"
+        );
+        const data = ffmpeg.FS("readFile", "out.mp4");
+        for (let i = 0; i < 60; i += 1) {
+          const num = `00${i}`.slice(-3);
+          ffmpeg.FS("unlink", `tmp.${num}.jpg`);
+        }
+
+        const video = document.getElementById("output-video");
+        video.src = URL.createObjectURL(
+          new Blob([data.buffer], { type: "video/mp4" })
+        );
+      };
+      const elm = document.getElementById("start-btn");
+      elm.addEventListener("click", image2video);
+    </script>
+  </body>
+</html>

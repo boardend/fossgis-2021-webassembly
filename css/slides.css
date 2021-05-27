@@ -1,0 +1,315 @@
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic|Cutive+Mono);
+
+
+.fallback-message {
+  font-family: sans-serif;
+  text-align: center;
+  line-height: 1.5;
+
+  width: 50vw;
+  padding: 10px;
+  margin: 5em auto;
+
+  border: 1px solid #ec7b02;
+  border-radius: 5px;
+  background: #ec7b02;
+}
+
+.fallback-message p {
+  margin-bottom: 10px;
+}
+
+.impress-supported .fallback-message {
+  display: none;
+}
+
+/*
+  The body background is the bacgkround of "everything". Many
+  impress.js tools call it the "surface". It could also be a
+  picture or pattern, but we leave it as light gray.
+*/
+
+body {
+  font-family: "PT Sans", sans-serif;
+  min-height: 740px;
+
+  background: #706f6f;
+  color: rgb(20, 20, 20);
+}
+
+/*
+    Now let's style the presentation steps.
+*/
+
+.step {
+  position: relative;
+  width: 1800px;
+  padding: 60px;
+  margin: 60px auto;
+
+  box-sizing: border-box;
+
+  font-family: "PT Serif", georgia, serif;
+  font-size: 60px;
+  line-height: 1.5;
+}
+/*
+    Make inactive steps a little bit transparent.
+*/
+.impress-enabled .step {
+  margin: 0;
+  opacity: 0.3;
+  transition: opacity 1s;
+}
+
+.impress-enabled .step.active {
+  opacity: 1;
+}
+
+/*
+    These 'slide' step styles were heavily inspired by HTML5 Slides:
+    http://html5slides.googlecode.com/svn/trunk/styles.css
+    
+    Note that we also use a background image, again just to facilitate a common
+    feature from PowerPoint and LibreOffice worlds. In this case the background
+    image is just the impress.js favicon - as if it were a company logo or something.
+    
+*/
+.slide {
+  display: block;
+
+  width: 1850px;
+  height: 1000px;
+  padding: 40px 60px;
+
+  background-color: white;
+  
+  /*
+  background-image: url(../images/background.png);
+  */
+  
+  /*
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  */
+
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 45px;
+  letter-spacing: -2px;
+}
+
+.slide h1,
+.slide h2,
+.slide h3 {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+.slide p {
+  text-align: center;
+  margin: 0.7em;
+}
+
+.slide li {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+/* Highlight.js used for coloring pre > code blocks. */
+.slide pre > code {
+  font-size: 30px;
+  text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.slide input {
+  font-size: 1em;
+}
+
+/* Inline code, no Highlight.js */
+code {
+  font-family: "Cutive mono", "Courier New", monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0 0.1em;
+  background: rgba(200, 200, 200, 0.2);
+  text-shadow: -2px 2px 4px rgba(100, 100, 100, 0.9);
+  border-radius: 0.2em;
+  border-bottom: 3px solid rgba(100, 100, 100, 0.2);
+  border-left: 3px solid rgba(100, 100, 100, 0.2);
+
+  transition: 0.5s;
+}
+a:hover,
+a:focus {
+  background: rgba(200, 200, 200, 1);
+  text-shadow: -2px 2px 3px rgba(100, 100, 100, 0.5);
+}
+
+/*
+.slide a::after{
+  content: "<br />(" attr(href) ") ";
+  background-color: yellow;
+}
+*/
+
+blockquote {
+  font-family: "PT Serif";
+  font-style: italic;
+  font-weight: 400;
+}
+
+em {
+  text-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+strong {
+  text-shadow: -3px 3px 6px rgba(100, 100, 100, 0.5);
+}
+
+q {
+  font-family: "PT Serif";
+  font-style: italic;
+  font-weight: 400;
+  text-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+strike {
+  opacity: 0.7;
+}
+
+small {
+  font-size: 0.4em;
+}
+
+img {
+  width: 600px;
+}
+
+td {
+  padding: 0.2em;
+}
+
+.slide .right {
+  float: right;
+  margin-left: 60px;
+  margin-right: 0px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.slide .left {
+  float: left;
+  margin-right: 60px;
+  margin-left: 0px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.slide .top {
+  position: absolute;
+  top: 40px;
+  margin-bottom: 40px;
+  margin-top: 0px;
+}
+.slide .bottom {
+  position: absolute;
+  bottom: 40px;
+  margin-bottom: 0px;
+  margin-top: 40px;
+}
+
+/* 
+    Specific styles for: .title slides 
+*/
+
+.title {
+  /*
+  background-image: url(../images/background-title.png);
+  */
+}
+
+.title h1,
+.title h2,
+.title h3 {
+  position: absolute;
+  left: 90px; /* slide width is 1800px, so this is like a 5% margin on both sides */
+  width: 90%;
+  text-align: center;
+}
+.title h1 {
+  top: 50px;
+}
+.title h2 {
+  top: 600px;
+}
+.title h3 {
+  top: 800px;
+}
+
+/* Styles for animating the contents of a slide, such as a img, p, li or span element. ********/
+
+/*
+ fly-in class starts from a position outside the slide, then flies into it's correct position.
+*/
+.future .fly-in {
+  transform: translateY(-2100px);
+  opacity: 0; /* Make it invisible, just so it doesn't clutter some other slide that might be in the position where we moved it */
+}
+.present .fly-in {
+  transform: translateY(0px);
+  opacity: 1;
+  transition: 2s;
+}
+.past .fly-out {
+  transform: translateY(2100px);
+  opacity: 0;
+  transition: 2s;
+}
+
+/*
+   Fade-in/out is a straightforward fade. Give it enough seconds that all browsers render it clearly.
+*/
+.future .fade-in {
+  opacity: 0;
+}
+.present .fade-in {
+  opacity: 1;
+  transition: 3s;
+}
+.past .fade-out {
+  opacity: 0;
+  transition: 3s;
+}
+/*
+    Zoom-in.
+*/
+.future .zoom-in {
+  transform: scale(10);
+  opacity: 0;
+}
+.present .zoom-in {
+  transform: scale(1);
+  opacity: 1;
+  transition: 3s;
+}
+.past .zoom-out {
+  transform: scale(10);
+  opacity: 0;
+}
+
+
+
+
+
+#imprint {
+
+}
+
