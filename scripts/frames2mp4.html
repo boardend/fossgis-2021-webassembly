@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>title</title>
+    <title>frames2mp4.html</title>
   </head>
   <body>
     <h3>Click start to transcode images to mp4 (x264) and play!</h3>
@@ -26,7 +26,7 @@
         for (let i = 0; i < 300; i += 1) {
           const num = `00${i}`.slice(-3);
           ffmpeg.FS(
-            "writeFile",
+            "writeFile",frames2mp4
             `tmp.${num}.jpg`,
             await fetchFile(`../img/footage/${num}.jpg`)
           );

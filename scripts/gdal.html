@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>gdal.html</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+      }
+
+      #bg,
+      #upload,
+      #status {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      #bg {
+        z-index: -1;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      #upload,
+      #status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @keyframes slidein {
+        from {
+          transform: translateY(200%);
+        }
+
+        to {
+          transform: translateY(0%);
+        }
+      }
+
+      #status {
+        z-index: 1;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: stretch;
+      }
+
+      #status * {
+        order: 0;
+        flex: 0 1 auto;
+        align-self: auto;
+        width: 100%;
+
+        animation-duration: 0.5s;
+        animation-name: slidein;
+
+        padding: 1em;
+        text-align: center;
+
+        font-size: x-large;
+        font-family: monospace;
+      }
+
+      #upload {
+        z-index: 2;
+      }
+      #upload * {
+        transform: scale(2, 2);
+      }
+      #upload input[type="file"] {
+        border: 1px dotted #d8d8d8;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="status"></div>
+    <div id="upload">
+      <input id="fileItem" type="file" multiple />
+    </div>
+
+    <script type="module">
+      // cdebea42526f9722c7b2e6102b1182c44191ce7d
+      import "https://cdn.jsdelivr.net/npm/gdal3.js@1.0.1/dist/gdal3.js";
+
+      const input = document.getElementById("fileItem");
+      const bg = document.getElementById("bg");
+
+      input.addEventListener("change", () => {
+        const files = Array.from(input.files);
+        const fileName = files[0].name.split(".")[0];
+
+        document.getElementById("upload").style.opacity = 0;
+        const status = document.getElementById("status");
+
+        const addStatus = (message, element = status) => {
+          if (element) {
+            const node = document.createElement("div");
+            const textnode = document.createTextNode(message);
+            node.appendChild(textnode);
+            element.appendChild(node);
+          }
+          console.log(`- ${message}`);
+        };
+
+        Gdal3({
+          path: "https://cdn.jsdelivr.net/npm/gdal3.js@1.0.1/dist",
+        }).then(async (gdal) => {
+          const dataset = (await gdal.open(files)).datasets[0];
+
+          // inspect dataset with gdalinfo
+          /*
+          addStatus("gdalinfo of input dataset");
+          const info = await gdal.getInfo(dataset);
+          console.dir(info);
+          */
+
+          // reproject with ogr2ogr
+          addStatus("ogr2ogr to KML '+proj=robin'");
+          const equalEarthOutputs = await gdal.ogr2ogr(dataset, [
+            "-f",
+            "KML",
+            "-t_srs",
+            "+proj=robin",
+          ]);
+
+          // re-open KML dataset
+          const bytesEqualEarth = await gdal.getFileBytes(
+            equalEarthOutputs[0].path
+          );
+          const fileEqualEarth = new File(
+            [new Blob([bytesEqualEarth])],
+            `${fileName}.kml`
+          );
+          fileEqualEarth.path = `/tmp/${fileName}.kml`;
+
+          const datasetEqualEarth = (await gdal.open(fileEqualEarth))
+            .datasets[0];
+
+          // gdal_rasterize KML to GeoTiff
+          addStatus("gdal_rasterize to GeoTiff");
+          const size = Math.max(
+            Math.round(bg.offsetWidth),
+            Math.round(bg.offsetHeight)
+          );
+          const tiffOutputs = await gdal.gdal_rasterize(datasetEqualEarth, [
+            "-of",
+            "GTiff",
+            "-burn",
+            "236",
+            "-burn",
+            "123",
+            "-burn",
+            "2",
+
+            "-a_nodata",
+            "255",
+
+            "-ts",
+            `${size * 2}`,
+            `${size}`,
+          ]);
+
+          // re-open GeoTiff dataset
+          const bytesTiff = await gdal.getFileBytes(
+            tiffOutputs.find((f) => f.path.endsWith(".tif")).path
+          );
+          const fileTiff = new File([new Blob([bytesTiff])], `${fileName}.tif`);
+          fileTiff.path = `/tmp/${fileName}.tif`;
+          const datasetTiff = (await gdal.open(fileTiff)).datasets[0];
+
+          // gdal_translate GeoTiff to JPEG
+          addStatus("gdal_translate to JPEG");
+          const jpegOutputs = await gdal.gdal_translate(datasetTiff, [
+            "-ot",
+            "Byte",
+            "-of",
+            "JPEG",
+          ]);
+
+          // decode .jpg output as base64 jpeg image
+          const bytesJpeg = await gdal.getFileBytes(
+            jpegOutputs.find((f) => f.path.endsWith(".jpg")).path
+          );
+          const convertBlobToBase64 = (blob) =>
+            new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onerror = reject;
+              reader.onload = () => {
+                resolve(reader.result);
+              };
+              reader.readAsDataURL(blob);
+            });
+          const base64Jpeg = await convertBlobToBase64(
+            new Blob([bytesJpeg], { type: "image/jpeg" })
+          );
+
+          // set result as background of #bg (after last status animation)
+          setTimeout(() => {
+            bg.style.backgroundImage = "url('" + base64Jpeg + "')";
+          }, 500);
+        });
+      });
+    </script>
+  </body>
+</html>
