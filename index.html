@@ -42,7 +42,7 @@
         </h1>
 
         <img
-          style="position: absolute; height: 500px; bottom: 2em; left: 5em"
+          style="position: absolute; height: 500px; bottom: 3em; left: 5em"
           src="img/fossgis2021.svg"
           alt="FOSSGIS Konferenz Logo 2021"
         />
@@ -51,7 +51,7 @@
           style="
             color: #706f6f;
             text-align: right;
-            top: 510px;
+            top: 470px;
             left: auto;
             right: 200px;
           "
@@ -62,7 +62,7 @@
           style="
             color: #ec7b02;
             text-align: right;
-            top: 610px;
+            top: 570px;
             left: auto;
             right: 200px;
           "
@@ -182,6 +182,61 @@
         data-scale="1"
       >
         <h1><code>.wasm</code>, was?</h1>
+
+        <img
+          style="
+            position: absolute;
+            height: 400px;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+          "
+          src="img/logo_wasm.svg"
+          alt="Logo WebAssembly"
+        />
+
+        <img
+          class="substep"
+          style="
+            position: absolute;
+            width: 600px;
+            left: 150px;
+            top: 100px;
+            transform: rotate(-5deg);
+            z-index: -1;
+          "
+          src="img/wasm_compilation.png"
+          alt="Webassembly compilation"
+        />
+
+        <img
+          class="substep"
+          style="
+            position: absolute;
+            width: 500px;
+            right: 150px;
+            bottom: 170px;
+            transform: rotate(5deg);
+            z-index: -1;
+          "
+          src="img/wasm_design.png"
+          alt="Webassembly design"
+        />
+
+        <img
+          class="substep"
+          style="
+            position: absolute;
+            width: 600px;
+            left: 100px;
+            bottom: 100px;
+            z-index: -1;
+          "
+          src="img/wasm_party.png"
+          alt="Webassembly browser party"
+        />
+
+        <!--
         <p>This slide has a few paragraphs <br />(p element) of normal text.</p>
         <p>
           Personally I like centered or even justified text, as it looks less
@@ -196,6 +251,7 @@
           >. <a href="https://twitter.com/bartaz">@bartaz</a> is the creator of
           impress.js.
         </p>
+        -->
 
         <div class="notes"></div>
       </div>
@@ -273,8 +329,6 @@
 
         <video
           id="earthVideo"
-          width="100%"
-          height="100%"
           style="
             position: absolute;
             top: 0;
@@ -309,15 +363,31 @@
             <h3 class="heading-left">Geo-Basisbibliotheken 📚</h3>
             <ul class="full-width">
               <li>GEOS, PROJ, GDAL/OGR, SQLite/SpatiaLite, &mldr;</li>
-              <li><code>C/C++</code> &rarr; <code>Emscripten</code> &rarr; <code>WebAssembly</code>
+              <li>
+                <code>C/C++</code> &rarr; <code>Emscripten</code> &rarr;
+                <code>WebAssembly</code>
+              </li>
             </ul>
           </li>
 
           <li class="substep">
             <h3 class="heading-left">Beispiel GDAL ⚙️</h3>
             <ul class="full-width">
-              <li><code>.*</code> &rarr; <code>.kml (+proj=robin)</code> &rarr; <code>.tif</code> &rarr; <code>.jpg<code><br />
-                <iframe id="gdalFrame" style="border: 3px dashed #D8D8D8;margin-left:125px;width: 700px;height: 350px;" src="about:blank" data-src="scripts/gdal.html" title="GDAL"></iframe>
+              <li>
+                <code>.*</code> &rarr; <code>.kml (+proj=robin)</code> &rarr;
+                <code>.tif</code> &rarr; <code>.jpg</code>
+                <iframe
+                  id="gdalFrame"
+                  style="
+                    border: 3px dashed #d8d8d8;
+                    margin-left: 125px;
+                    width: 700px;
+                    height: 350px;
+                  "
+                  src="about:blank"
+                  data-src="scripts/gdal.html"
+                  title="GDAL"
+                ></iframe>
               </li>
             </ul>
           </li>
@@ -336,26 +406,35 @@
         <h1>Wo es hingen könnte</h1>
         <ul>
           <li class="substep">
-            <h3 class="heading-left">WebAssembly ist da 🥳</h3>
-
+            <h3 class="heading-left">WebAssembly entwickelt sich weiter 🔧</h3>
             <ul>
-              <li>Browser, Desktop, Cloud, Embedded, Blockchain, &mldr;</li>
-              <li>Threads, SIMD, WASI, &mldr;</li>
+              <li>Mehr Sprachen/Toolchains &amp; Runtimes</li>
               <li>
-                Zusammen mit (neuen) Web APIs:
+                Neue Proposals
                 <ul>
-                  <li>File System Access, Geolocation, WebGPU, &mldr;</li>
+                  <li class="show-url-spacer">
+                    <a
+                      href="https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/"
+                      target="_blank"
+                      class="show-url"
+                      >Threads, SIMD, 64bit, Interface Types, Linking &mldr;
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>
+            <br class="spacer" />
           </li>
-
           <li class="substep">
-            <h3 class="heading-left">WebAssembly ist für uns 🌍</h3>
+            <h3 class="heading-left">Zukunft gehört der Web-Platform 🔮</h3>
             <ul>
-              <li>Wiederverwendung bestehender Geo-Basisbibliotheken</li>
-              <li>Performance Gewinn bei rechenintensiven Operationen</li>
-              <li>Plattformunabhängigkeit, Sandboxing, &mldr;</li>
+              <li>JS/WASM, Web APIs, WebGL/WebGPU, &mldr;</li>
+              <li>
+                Grenzen zwischen Backend/Frontend verschwimmen
+                <ul>
+                  <li>Web GIS komplett im Client?</li>
+                </ul>
+              </li>
             </ul>
           </li>
         </ul>
@@ -377,14 +456,9 @@
 
             <ul>
               <li>Browser, Desktop, Cloud, Embedded, Blockchain, &mldr;</li>
-              <li>Threads, SIMD, WASI, &mldr;</li>
-              <li>
-                Zusammen mit (neuen) Web APIs:
-                <ul>
-                  <li>File System Access, Geolocation, WebGPU, &mldr;</li>
-                </ul>
-              </li>
+              <li>Entwickelt sich rasant weiter</li>
             </ul>
+            <br class="spacer" />
           </li>
 
           <li class="substep">
@@ -496,13 +570,12 @@
         <p>
           <br class="spacer-small" />
           <img
-            style="height: 1.5em;margin-bottom:-0.8em"
+            style="height: 1.5em; margin-bottom: -0.8em"
             src="img/cc_by.svg"
             alt="FOSSGIS Konferenz Logo 2021"
           /><br />
           <small>Creative Commons Attribution 4.0 License (CC BY 4.0)</small>
         </p>
-        
 
         <div class="notes"></div>
       </div>
@@ -528,10 +601,7 @@
     <div id="impress-help"></div>
     -->
 
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/impress.js@1.1.0/js/impress.js"
-    ></script>
+    <script src="https://unpkg.com/impress.js@1.1.0/js/impress.js"></script>
     <script type="module">
       import { init } from "./js/slides.js";
       window.onload = () => init();
