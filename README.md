@@ -59,6 +59,11 @@ Webassemblys Potential ist insbesondere für die Verarbeitung und Visualisierung
   - https://avnav.com/mbgl/
 - spatiasql.js
   - http://jvail.github.io/spatiasql.js/?qry=SELECT%20*%20FROM%20toscana
+- Wasm Geo Aggregator
+  - https://stuartlynn.github.io/wasm_geo_agg/
+- Google Earth
+  - https://web.dev/earth-webassembly/
+  - https://blog.chromium.org/2019/06/webassembly-brings-google-earth-to-more.html
 - ESRI
   - https://www.esri.com/arcgis-blog/products/js-api-arcgis/mapping/introducing-the-client-side-projection-engine/
 - Do you have more examples?
