@@ -55,10 +55,11 @@
   width: 0;
   height: 2px;
   border-radius: 5px;
-  background: rgba(75, 75, 75, 0.4);
+  background: white;
   transition: width 1s linear;
 }
 .impress-enabled .impress-progress {
+  color: white;
   position: absolute;
   left: 59px;
   bottom: 1px;
@@ -84,6 +85,9 @@
   padding-right: 1em;
 }
 
+#impress-autoplay-playpause {
+  display: none;
+}
 
 body.impress-mouse-timeout {
   cursor: none;

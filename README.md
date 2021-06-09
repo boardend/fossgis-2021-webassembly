@@ -2,11 +2,11 @@
 
 Lightning Talk @ **[FOSSGIS 2021](https://www.fossgis-konferenz.de/2021/)** (English: "**_Webassembly: Where we are and where we are heading_**").
 
+> **Video**: https://media.ccc.de/v/fossgis2021-9601-webassembly-wo-wir-sind-und-wo-es-hingehen-knnte
+
 > **Slides**: https://boardend.github.io/fossgis-2021-webassembly/
 
 > **Session**: https://www.fossgis-konferenz.de/2021/sessions/ZVFZQQ.php
-
-> **Video**: `TODO`
 
 ## Description (DE)
 
